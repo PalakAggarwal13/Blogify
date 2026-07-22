@@ -1,31 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%-  include('./partials/head') %>
-    <title>Add New Blog</title>
+  <%- include('./partials/head') %>
+  <title>Create Blog - Blogify</title>
 </head>
 <body>
-    
-    <%- include('./partials/nav') %>
-    <div class="container mt-4">
-        <form action="/blog" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-    <label for="coverImageURL" class="form-label">Cover Image</label>
-    <input type="file" class="form-control" id="coverImageURL" name="coverImageURL" aria-describedby="coverImageURL"></div>
+<%- include('./partials/nav') %>
+<div class="container mt-5">
+  <div class="card shadow border-0 p-4 mx-auto"
+       style="max-width:700px; border-radius:20px;">
+    <h1 class="text-center fw-bold mb-4">
+      ✍️ Create New Blog
+    </h1>
+    <form action="/blog" method="post" enctype="multipart/form-data">
+      <div class="mb-4">
 
-            <div class="mb-3">
-    <label for="title" class="form-label">Title</label>
-    <input type="text" class="form-control" id="title" name="title" aria-describedby="title"></div>
+        <label for="coverImageURL" class="form-label fw-semibold">
+          Cover Image
+        </label>
 
-    <div class="mb-3">
-    <label for="body" class="form-label">Body</label>
-    <textarea class="form-control"  id="body" name="body"></textarea></div>
+        <input 
+          type="file"
+          class="form-control"
+          id="coverImageURL"
+          name="coverImageURL"
+        >
+      </div>
+      <div class="mb-4">
+        <label for="title" class="form-label fw-semibold">
+          Blog Title
+        </label>
 
-    <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-        </form>
-    </div>
+        <input 
+          type="text"
+          class="form-control form-control-lg"
+          id="title"
+          name="title"
+          placeholder="Enter blog title"
+        >
+
+      </div>
+      <div class="mb-4">
+
+        <label for="body" class="form-label fw-semibold">
+          Content
+        </label>
+
+        <textarea 
+          class="form-control"
+          id="body"
+          name="body"
+          rows="8"
+          placeholder="Write your story..."
+        ></textarea>
+
+      </div>
+      <button 
+        type="submit"
+        class="btn btn-dark btn-lg w-100">
+
+        Publish Blog 🚀
+
+      </button>
+    </form>
+  </div>
+</div>
+<%- include('./partials/scripts') %>
 </body>
-<%-  include('./partials/scripts') %>
+
 </html>
