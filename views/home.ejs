@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <%-  include('./partials/head') %>
@@ -22,4 +22,111 @@
     </div>
 </body>
 <%-  include('./partials/scripts') %>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/head') %>
+  <title>Blogify - Home</title>
+
+  <style>
+    body {
+      background: #f8f9fa;
+      transition: 0.3s;
+    }
+
+    body.dark-mode {
+      background: #121212;
+      color: white;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 20px;
+      padding: 50px;
+      margin-top: 30px;
+    }
+
+    .blog-card {
+      border: none;
+      border-radius: 18px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .blog-card img {
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .dark-mode .card {
+      background: #1e1e1e;
+      color: white;
+    }
+
+    .theme-btn {
+      border-radius: 50px;
+    }
+
+  </style>
+</head>
+<body>
+
+<%- include('./partials/nav') %>
+<div class="container">
+  <div class="hero text-center shadow">
+    <h1 class="display-3 fw-bold">
+      Blogify
+    </h1>
+    <p class="fs-4">
+      Write. Share. Inspire.
+    </p>
+    <button 
+      class="btn btn-light theme-btn mt-3"
+      onclick="toggleTheme()">
+      🌙 Dark Mode
+    </button>
+  </div>
+  <h2 class="mt-5 mb-4 fw-bold">
+    Latest Blogs
+  </h2>
+  <div class="row g-4">
+    <% blogs.forEach(blog => { %>
+    <div class="col-md-4">
+      <div class="card blog-card shadow">
+        <img 
+        src="<%= blog.coverImageURL %>"
+        class="card-img-top">
+        <div class="card-body">
+          <h5 class="fw-bold">
+            <%= blog.title %>
+          </h5>
+          <p class="text-muted">
+            Discover amazing stories on Blogify
+          </p>
+          <a 
+          href="/blog/<%= blog._id %>"
+          class="btn btn-primary">
+          Read Blog
+          </a>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+<script>
+function toggleTheme(){
+ document.body.classList.toggle("dark-mode");
+}
+</script>
+<%- include('./partials/scripts') %>
+</body>
 </html>
