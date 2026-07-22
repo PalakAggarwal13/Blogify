@@ -1,44 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <%-  include('./partials/head') %>
-    <title>Blog</title>
-</head>
-<body>
-    
-    <%- include('./partials/nav') %>
+<div class="container mt-5">
+  <div class="card shadow border-0 p-4">
+    <h1 class="fw-bold mb-4">
+      <%= blog.title %>
+    </h1>
+    <img 
+      src="<%= blog.coverImageURL.startsWith('/') 
+      ? blog.coverImageURL 
+      : '/' + blog.coverImageURL %>"
+      class="img-fluid rounded mb-4"
+      style="max-height:500px; object-fit:cover;"
+    />
+    <p class="fs-5">
+      <%= blog.body %>
+    </p>
+    <hr>
+    <div class="d-flex align-items-center">
+      <img 
+        src="<%= blog.createdBy.profileImageURL %>"
+        class="rounded-circle me-3"
+        width="55px"
+        height="55px"
+      >
+      <div>
+        <small class="text-muted">
+          Written by
+        </small>
 
-   <div class="container mt-4">
-    <h1> <%= blog.title %></h1>
-    <img src="<%= blog.coverImageURL.startsWith('/') 
-    ? blog.coverImageURL 
-    : '/' + blog.coverImageURL  %>" width="400px"/>
-    <p><%= blog.body %></p>
-   </div>
-
-   <div class="container mt-4">
-    <img src="<%= blog.createdBy.profileImageURL %>" width="50px"><%= blog.createdBy.fullName %>
-   </div>
-
-   <div class="container mt-4">
-    <h1>Comments (<%= comments.length %>)</h1>
-    <% if (locals.user) { %>
-     <form action="/blog/comment/<%= blog._id %>" method="post">
-      <div class="mb-3">
-    <input type="text" class="form-control" name="content" placeholder="Enter your comment here!"/><br>
-    <button class="btn btn-sm btn-primary">Add Comment</button>
-  </div>
-    </form>
-    
-    <% } %>
-   </div>
-   <div class="mt-3">
-      <% comments.forEach(comment => { %>
-       <div>
-        <img src="<%= comment.createdBy.profileImageURL %>" width="50px"><%= comment.createdBy.fullName %>:<pre><%= comment.content %></pre>
-       </div>
-      <% }) %>
+        <h6 class="mb-0 fw-bold">
+          <%= blog.createdBy.fullName %>
+        </h6>
+      </div>
     </div>
-</body>
-<%-  include('./partials/scripts') %>
-</html>
+  </div>
+  <div class="card shadow border-0 mt-5 p-4">
+    <h2 class="fw-bold">
+      Comments (<%= comments.length %>)
+    </h2>
+
+    <% if (locals.user) { %>
+    <form action="/blog/comment/<%= blog._id %>" method="post">
+      <div class="mb-3">
+        <textarea 
+          class="form-control"
+          name="content"
+          rows="3"
+          placeholder="Write a comment..."></textarea>
+
+      </div>
+      <button class="btn btn-primary">
+        Add Comment
+      </button>
+    </form>
+    <% } %>
+  </div>
+  <div class="mt-4">
+    <% comments.forEach(comment => { %>
+    <div class="card shadow-sm border-0 mb-3 p-3">
+      <div class="d-flex align-items-center">
+        <img 
+        src="<%= comment.createdBy.profileImageURL %>"
+        class="rounded-circle me-3"
+        width="45px"
+        height="45px"
+        >
+        <div>
+          <strong>
+            <%= comment.createdBy.fullName %>
+          </strong>
+          <p class="mb-0 mt-2">
+            <%= comment.content %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
